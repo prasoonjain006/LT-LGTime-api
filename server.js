@@ -13,36 +13,32 @@ app.use(BodyParser.urlencoded({ extended: true }));
 
 // const {MongoClient} = require('mongodb');
 async function main(){
-    /**
-     * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
-     * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
-     */
+    
     
     const uri=process.env.MONGODB_URI;
  
 
     
-    var client = new MongoClient(uri,{useNewUrlParser: true, 
+    const client = new MongoClient(uri,{useNewUrlParser: true, 
         useUnifiedTopology: true,
-        useNewUrlParser:true,
      });
 
-    app.listen(5000 || process.env.PORT, () => {
-        console.log("listing");
-    });
+    
 
 
     
     // client = new MongoClient(uri,{useNewUrlParser: true, useUnifiedTopology: true });
-    client.connect(err => {
-        const collection = client.db("faqdb").collection("faq");
+    await client.connect(err => {
+        
         // perform actions on the collection object
         
 
         app.get("/", (request, response) => {
+            const collection = client.db("faqdb").collection("faq");
             collection.find({}).toArray((error, result) => {
                     console.log(result);
                     console.log(error);
+                    response.send("HI");
                     if(error) {
                         return response.status(500).send(error);
                     }
@@ -53,24 +49,13 @@ async function main(){
         app.get('/api',(req,res) =>
         res.send('Its working'));
 
-
-        
       });
  
 }
 
-main().catch(console.error);
-
-async function listDatabases(client){
-    databasesList = await client.db().admin().listDatabases();
- 
-    console.log("Databases:");
-    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
-
-    myCursor = client.db("faqdb");
-    
-}
-;
+app.listen( process.env.PORT, () => {
+    console.log("listening");
+});
 
 
 
