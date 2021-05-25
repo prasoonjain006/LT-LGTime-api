@@ -1,5 +1,5 @@
 {
-  "name": "bot_task",
+  "name": "api",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
