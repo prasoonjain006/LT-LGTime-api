@@ -4,6 +4,7 @@ const Express = require("express");
 const BodyParser = require("body-parser");
 const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectID;
+const { Server, ReplSet } = require("mongodb");
 var app = Express();
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
@@ -21,23 +22,22 @@ async function main(){
  
 
     
-    var client = new MongoClient(uri,{useNewUrlParser: true, useUnifiedTopology: true });
+    var client = new MongoClient(uri,{useNewUrlParser: true, 
+        useUnifiedTopology: true,
+        useNewUrlParser:true,
+     });
 
     app.listen(5000 || process.env.PORT, () => {
         console.log("listing");
     });
 
 
-    client = new MongoClient(uri,{useNewUrlParser: true, useUnifiedTopology: true });
+    
+    // client = new MongoClient(uri,{useNewUrlParser: true, useUnifiedTopology: true });
     client.connect(err => {
         const collection = client.db("faqdb").collection("faq");
         // perform actions on the collection object
-        // collection.find({}).toArray((error, result) => {
-        //     if(error) {
-        //         return response.status(500).send(error);
-        //     }
-        //     console.log(result);
-        // });
+        
 
         app.get("/", (request, response) => {
             collection.find({}).toArray((error, result) => {
