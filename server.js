@@ -28,7 +28,7 @@ async function main(){
 
     
     // client = new MongoClient(uri,{useNewUrlParser: true, useUnifiedTopology: true });
-    await client.connect(err => {
+    client.connect(err => {
         
         // perform actions on the collection object
         
