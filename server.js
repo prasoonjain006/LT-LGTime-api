@@ -28,7 +28,7 @@ app.get('/api',(req,res) =>
     client.connect(err => {
 
         console.log("a")
-        const collection = client.db("faqdb").collection("faq");
+        // const collection = client.db("faqdb").collection("faq");
             // collection.find({}).toArray((error, result) => {
             //         console.log(result);
             //         console.log(error);
