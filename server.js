@@ -23,15 +23,8 @@ app.listen( 5000 || process.env.PORT  , () => {
 app.get('/api',(req,res) =>
         res.send('Its working'));
 
-// const {MongoClient} = require('mongodb');
-    
-    
-
-    client.connect(err => {
-
-        console.log("a")
-        
-        app.get("/", (request, response) => {
+    app.get("/", (request, response) => {
+       client.connect(err => { 
             const collection = client.db("faqdb").collection("faq");
             collection.find({}).toArray((error, result) => {
                     console.log(result);
