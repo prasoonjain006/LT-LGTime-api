@@ -12,6 +12,11 @@ app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
+const uri=process.env.MONGO_URI;
+    const client = new MongoClient(uri,{useNewUrlParser: true, 
+        useUnifiedTopology: true,
+     });
+
 app.listen( 5000 || process.env.PORT  , () => {
     console.log("listening");
 });
@@ -20,27 +25,12 @@ app.get('/api',(req,res) =>
 
 // const {MongoClient} = require('mongodb');
     
-    const uri=process.env.MONGO_URI;
-    const client = new MongoClient(uri,{useNewUrlParser: true, 
-        useUnifiedTopology: true,
-     });
+    
 
     client.connect(err => {
 
         console.log("a")
-        // const collection = client.db("faqdb").collection("faq");
-            // collection.find({}).toArray((error, result) => {
-            //         console.log(result);
-            //         console.log(error);
-            //         if(error) {
-            //             return response.status(500).send(error);
-            //         }
-            //         // response.send(result);
-            //     });
-
-
-
-
+        
         app.get("/", (request, response) => {
             const collection = client.db("faqdb").collection("faq");
             collection.find({}).toArray((error, result) => {
@@ -52,9 +42,6 @@ app.get('/api',(req,res) =>
                     response.send(result);
                 });
         });
-
-        
-
       });
 
 
