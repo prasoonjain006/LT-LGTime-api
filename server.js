@@ -19,28 +19,26 @@ const uri=process.env.MONGO_URI;
 
 
      const host = '0.0.0.0';
-const port = process.env.PORT || 5000;
-app.listen( port, host , () => {
-    console.log("listening");
-});
-app.get('/api',(req,res) =>
+    const port = process.env.PORT || 5000;
+    app.listen( port, host , () => {
+        console.log("listening");
+    });
+
+        app.get('/api',(req,res) =>
         res.send('Its working'));
 
+        MongoClient.connect();
         
 
-        MongoClient.connect();
-        await client.connect();
-
-     client.connect().then(
+     client.connect(err => {
          app.get("/", (request, response) => {
             const collection = client.db("faqdb").collection("faq");
             collection.find({}).toArray()
             .then(res =>
                 response.status(200).json(res) 
-                ).catch(error => console.log(error));
-                    
-        })).catch(error=> console.log(error));
-      
+                ).catch(error => console.log(error));     
+        });
+      });
 
 
 
