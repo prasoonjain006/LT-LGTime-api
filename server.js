@@ -40,15 +40,17 @@ app.use(cors());
 
         app.get("/", (request, response) => {
             const collection = client.db("faqdb").collection("faq");
-            collection.find({}).toArray()
-            .then(res =>
-                response.status(200).json(res) 
-                ).catch(error => console.log(error));     
+            collection.find({}).toArray((error, result) => {
+                    console.log(result);
+                    console.log(error);
+                    if(error) {
+                        return response.status(500).send(error);
+                    }
+                    response.send(result);
+                });
         });
      }catch(e){
          console.log(e);
-     }finally{
-         await client.close();
      }
 
     }
