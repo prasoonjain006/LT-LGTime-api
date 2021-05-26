@@ -31,7 +31,7 @@ app.get('/api',(req,res) =>
         MongoClient.connect();
         client.connect();
 
-     client.connect().then
+     client.connect().then(
          app.get("/", (request, response) => {
             const collection = client.db("faqdb").collection("faq");
             collection.find({}).toArray()
@@ -39,7 +39,7 @@ app.get('/api',(req,res) =>
                 response.status(200).json(res) 
                 ).catch(error => console.log(error));
                     
-        }).catch(error=> console.log(error));
+        })).catch(error=> console.log(error));
       
 
 
