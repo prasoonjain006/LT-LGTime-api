@@ -29,7 +29,7 @@ app.get('/api',(req,res) =>
         
 
         MongoClient.connect();
-        client.connect();
+        await client.connect();
 
      client.connect().then(
          app.get("/", (request, response) => {
