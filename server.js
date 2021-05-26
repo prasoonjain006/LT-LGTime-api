@@ -23,8 +23,10 @@ app.listen( 5000 || process.env.PORT  , () => {
 app.get('/api',(req,res) =>
         res.send('Its working'));
 
-    app.get("/", (request, response) => {
-       client.connect(err => { 
+        // client.connect();
+
+     client.connect(err => {
+         app.get("/", (request, response) => {
             const collection = client.db("faqdb").collection("faq");
             collection.find({}).toArray((error, result) => {
                     console.log(result);
