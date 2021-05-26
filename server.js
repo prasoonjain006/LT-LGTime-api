@@ -17,7 +17,10 @@ const uri=process.env.MONGO_URI;
         useUnifiedTopology: true,
      });
 
-app.listen( 5000 || process.env.PORT  , () => {
+
+     const host = '0.0.0.0';
+const port = process.env.PORT || 5000;
+app.listen( port, host , () => {
     console.log("listening");
 });
 app.get('/api',(req,res) =>
