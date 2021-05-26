@@ -26,7 +26,9 @@ app.listen( port, host , () => {
 app.get('/api',(req,res) =>
         res.send('Its working'));
 
-        client.connect();
+        
+
+        MongoClient.connect();
 
      client.connect(err => {
          app.get("/", (request, response) => {
